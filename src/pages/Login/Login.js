@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { URI_LOGIN } from '../../util/UriConstants';
 import { AlertBox } from '../../components/alertbox/AlertBox';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../util/AuthContext';
+
 
 function Login () {
   const [username, setUsername] = useState('');
@@ -9,6 +11,7 @@ function Login () {
   const [alertMessage, setAlertMessage] = useState('');
   const [alertTrigger, setAlertTrigger] = useState(0);
   const navigate = useNavigate();
+  const { checkLoginStatus } = useAuth();
 
   const showAlert = (msg) => {
     setAlertMessage(msg);
@@ -29,11 +32,12 @@ function Login () {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
+        credentials: 'include',
         body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
       });
 
       if (response.ok) {
-        console.log("Login successful")
+        await checkLoginStatus();
         const previousUrl = sessionStorage.getItem('previousUrl');
         navigate(previousUrl || '/');
       } else if (response.status === 403) {

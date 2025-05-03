@@ -17,6 +17,7 @@ export const URI_DOWNTIME_REPORT           = BASE_URL + "/v1/DownTimeReport";
 
 // User endpoints
 export const URI_AUTH_STATUS               = BASE_URL + "/v1/auth/status";
+export const URI_LOGIN                     = BASE_URL + "/login";
 
 // History endpoints
 export const URI_CALENDER_EVENT_HISTORY    = BASE_URL + "/v1/CalenderEventHistory";

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './Homepage.css';
-import { URI_EVENTS } from '../../util/UriConstants.js';
+import { URI_EVENTS } from '../../util/UriConstants';
 import GreenAircraft from '../../assets/images/GreenAircraft.png';
 import RedAircraft from '../../assets/images/redAircraft.png';
 

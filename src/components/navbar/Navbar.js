@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './navbar.css';
 
-function Navbar() {
+function Navbar({ isFullscreen }) {
     const location = useLocation();
     const navbarRef = useRef(null);
     const toggleRef = useRef(null);
@@ -38,7 +38,7 @@ function Navbar() {
     }, []);
 
   return (
-    <div id='sideMenu'>
+    <div id='sideMenu' style={{ display: isFullscreen ? 'none' : 'block' }}>
         <div className="l-navbar" id="navbar" ref={navbarRef}>
             <nav className="nav">
                 <div>

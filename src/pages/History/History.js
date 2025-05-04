@@ -3,7 +3,7 @@ import CalendarView from './CalendarView';
 import { fetchCarriers, fetchTypes, fetchReasons, fetchAircraft, fetchEventHistory, buildFilterUrl } from '../../util/DataService';
 import { URI_CALENDER_EVENT_HISTORY, URI_CSV, URI_DOWNTIME_REPORT, URI_EVENT_HISTORY } from '../../util/UriConstants';
 import Select from 'react-select';
-import { customDarkStyles } from '../../util/Select';
+import { customDarkStyles } from '../../components/select/Select';
 
 function History() {
 

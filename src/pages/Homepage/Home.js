@@ -94,7 +94,7 @@ function Home({ isFullscreen, setIsFullscreen }) {
                                         <p className="card-text">{truncateText(event.remark)}</p>
                                         <p>{event.backInService === 0 ? 'Next Update:' : 'Down Time:'}</p>
                                         <p className="card-text">
-                                            {event.backInService === 0 ? event.nextUpdate : event.downTime}
+                                            {event.backInService === 0 ? new Date(event.nextUpdate).toLocaleDateString() : event.downTime}
                                         </p>
                                     </div>
                                 </div>

@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import Navbar from './components/navbar/Navbar';
 import Home from './pages/Homepage/Home';
 import AircraftStatus from './pages/AircraftStatus';
-import History from './pages/History';
+import History from './pages/History/History';
 import Login from './pages/Login/Login';
 import { AuthProvider } from './util/AuthContext';
 

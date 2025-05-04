@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './navbar.css';
 import { useAuth } from '../../util/AuthContext';
-import { URI_LOGIN_PAGE, URI_LOGOUT } from '../../util/UriConstants';
+import { URI_LOGIN_PAGE } from '../../util/UriConstants';
 import { logoutUser } from '../../pages/Login/Logout';
 
 function Navbar({ isFullscreen }) {

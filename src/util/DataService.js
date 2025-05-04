@@ -1,4 +1,9 @@
-import { URI_CARRIER, URI_TYPE, URI_REASON, URI_AIRCRAFT } from './UriConstants';
+import { 
+    URI_CARRIER, 
+    URI_TYPE, 
+    URI_REASON, 
+    URI_AIRCRAFT 
+} from './UriConstants';
 
 export const fetchCarriers = () => fetch(URI_CARRIER).then(res => res.json());
 export const fetchTypes = () => fetch(URI_TYPE).then(res => res.json());

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import CalendarView from './CalendarView';
 import { fetchCarriers, fetchTypes, fetchReasons, fetchAircraft, fetchEventHistory, buildFilterUrl } from '../../util/DataService';
 import { URI_CALENDER_EVENT_HISTORY, URI_CSV, URI_DOWNTIME_REPORT, URI_EVENT_HISTORY } from '../../util/UriConstants';
+import Select from 'react-select';
+import { customDarkStyles } from '../../util/Select';
 
 function History() {
 
@@ -80,7 +82,6 @@ function History() {
             display: 'block'
         })));
     };
-
     
     const exportData = (uri) => {
         const filters = {
@@ -96,6 +97,19 @@ function History() {
         link.href = url.toString();
         link.click();
     };
+
+    // Set multi-select logic and data
+    const reasonOptions = reasons.map(r => ({
+        value: r.reasonId,
+        label: r.reason
+    }));
+
+    const handleChange = selectedOptions => {
+        const selectedValues = selectedOptions.map(option => option.value);
+        setSelectedReasons(selectedValues);
+    };
+
+    const selectedOptions = reasonOptions.filter(option => selectedReasons.includes(option.value));
 
     return (
         <>
@@ -130,12 +144,14 @@ function History() {
                     </div>
                     <div className="col-md-2">
                         <label htmlFor="reasonIds" className="form-label">Reason:</label>
-                        <select id="reasonIds" className="form-select" multiple value={selectedReasons} onChange={e => {
-                            const options = Array.from(e.target.selectedOptions).map(opt => opt.value);
-                            setSelectedReasons(options);
-                        }}>
-                            {reasons.map(r => <option key={r.reasonId} value={r.reasonId}>{r.reason}</option>)}
-                        </select>
+                        <Select 
+                            isMulti
+                            id='reasonIds'
+                            options={reasonOptions}
+                            value={selectedOptions}
+                            onChange={handleChange}
+                            styles={customDarkStyles}
+                        />
                     </div>
                     <div className="col-md-2">
                         <label htmlFor="startTime" className="form-label">Start Time:</label>

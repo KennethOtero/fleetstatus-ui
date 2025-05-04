@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React, {useState} from 'react';
 import Navbar from './components/navbar/Navbar';
 import Home from './pages/Homepage/Home';
-import AircraftStatus from './pages/AircraftStatus';
+import AircraftStatus from './pages/AircraftStatus/AircraftStatus';
 import History from './pages/History/History';
 import Login from './pages/Login/Login';
 import { AuthProvider } from './util/AuthContext';

@@ -1,7 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './AircraftStatus.css';
+import { fetchOOSEvents } from '../../util/DataService';
+import GreenAircraft from '../../assets/images/SmallGreenAircraft.png';
+import RedAircraft from '../../assets/images/SmallRedAircraft.png';
 
 function AircraftStatus() {
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+        fetchEvents();
+
+        const interval = setInterval(() => {
+            fetchEvents();
+        }, 10000);
+    }, []);
+
+    const fetchEvents = async () => {
+        try {
+            setEvents(await fetchOOSEvents());
+        } catch(error) {
+            console.error("Error fetching events:", error);
+        }
+    };
+
+    const handleBackInService = (eventId) => {};
+    
+    const handleEditEvent = async (eventId) => {};
+
+    const formatTime = (timestamp) => {
+        const date = new Date(timestamp);
+        return date.toLocaleString();
+    };
+
     return(
         <div>
             <div className="container">
@@ -32,7 +62,29 @@ function AircraftStatus() {
                         </tr>
                     </thead>
                     <tbody id="statusDisplay">
-                        {}
+                        {events.length === 0 ? (
+                            <tr className='text-white text-center bg-dark'>
+                                <td colSpan='7'>No current events.</td>
+                            </tr>
+                        ) : (
+                            events.map(event => (
+                                <tr key={event.eventId}>
+                                    <td>
+                                        <img src={event.backInService ? GreenAircraft : RedAircraft} alt="aircraft status"/>
+                                    </td>
+                                    <td>{event.aircraft.tailNumber}</td>
+                                    <td>{event.reasonString}</td>
+                                    <td>{formatTime(event.nextUpdate)}</td>
+                                    <td>{event.remark}</td>
+                                    <td>
+                                        <button className='btn btn-primary border-0' onClick={() => handleBackInService(event.eventId)}>Set</button>
+                                    </td>
+                                    <td>
+                                        <button className='btn btn-primary border-0' onClick={() => handleEditEvent(event.eventId)}>Edit</button>
+                                    </td>
+                                </tr>
+                            ))
+                        )}
                     </tbody>
                 </table>
             </div>

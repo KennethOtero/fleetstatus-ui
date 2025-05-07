@@ -2,13 +2,16 @@ import {
     URI_CARRIER, 
     URI_TYPE, 
     URI_REASON, 
-    URI_AIRCRAFT 
+    URI_AIRCRAFT,
+    URI_OOS_EVENTS 
 } from './UriConstants';
 
 export const fetchCarriers = () => fetch(URI_CARRIER).then(res => res.json());
 export const fetchTypes = () => fetch(URI_TYPE).then(res => res.json());
 export const fetchReasons = () => fetch(URI_REASON).then(res => res.json());
 export const fetchAircraft = () => fetch(URI_AIRCRAFT).then(res => res.json());
+
+export const fetchOOSEvents = () => fetch(URI_OOS_EVENTS).then(res => res.json());
 
 export const fetchEventHistory = (url) => fetch(url).then(res => res.json());
 

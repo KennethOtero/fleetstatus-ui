@@ -3,9 +3,15 @@ import './AircraftStatus.css';
 import { fetchOOSEvents } from '../../util/DataService';
 import GreenAircraft from '../../assets/images/SmallGreenAircraft.png';
 import RedAircraft from '../../assets/images/SmallRedAircraft.png';
+import AddEventModal from './modals/AddEventModal';
 
 function AircraftStatus() {
     const [events, setEvents] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+
+    const refreshTable = () => {
+        fetchEvents();
+    };
 
     useEffect(() => {
         fetchEvents();
@@ -39,7 +45,12 @@ function AircraftStatus() {
 
                 <div className="row table-buttons">
                     <div className="col-sm">
-                        <button type="button" className="btn btn-primary border-0" data-bs-toggle="modal" data-bs-target="#addTailEvent">Add New Tail Event</button>
+                        <button type="button" className="btn btn-primary border-0" onClick={() => setShowModal(true)}>Add New Tail Event</button>
+                        <AddEventModal 
+                            show={showModal}
+                            handleClose={() => setShowModal(false)}
+                            refreshTable={refreshTable}
+                        />
                     </div>
                     <div className="col-sm text-end">
                         <button type="button" className="btn btn-primary border-0" data-bs-toggle="modal" data-bs-target="#addAircraft">Add Aircraft</button>

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, Alert } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { Modal, Button, Form } from 'react-bootstrap';
 import { URI_EVENTS } from '../../../util/UriConstants';
 import { fetchAircraft, fetchReasons } from '../../../util/DataService';
 import { AlertBox } from '../../../components/alertbox/AlertBox';

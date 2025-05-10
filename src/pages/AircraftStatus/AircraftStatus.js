@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './AircraftStatus.css';
 import { fetchOOSEvents } from '../../util/DataService';
 import GreenAircraft from '../../assets/images/SmallGreenAircraft.png';
 import RedAircraft from '../../assets/images/SmallRedAircraft.png';
 import AddEventModal from './modals/AddEventModal';
 import AddAircraftModal from './modals/AddAircraftModal';
+import RemoveAircraftModal from './modals/RemoveAircraftModal';
 
 function AircraftStatus() {
     const [events, setEvents] = useState([]);
@@ -17,7 +18,7 @@ function AircraftStatus() {
     useEffect(() => {
         fetchEvents();
 
-        const interval = setInterval(() => {
+        setInterval(() => {
             fetchEvents();
         }, 10000);
     }, []);
@@ -66,6 +67,13 @@ function AircraftStatus() {
                         )}
                         <> </>
                         <button type="button" className="btn btn-primary border-0" onClick={() => setShowModal("removeAircraft")}>Remove Aircraft</button>
+                        {showModal === 'removeAircraft' && (
+                            <RemoveAircraftModal 
+                                show={true}
+                                handleClose={() => setShowModal(null)}
+                                refreshTable={refreshTable}
+                            />
+                        )}
                     </div>
                 </div>
             </div>

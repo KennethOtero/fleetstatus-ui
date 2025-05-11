@@ -6,10 +6,14 @@ import RedAircraft from '../../assets/images/SmallRedAircraft.png';
 import AddEventModal from './modals/AddEventModal';
 import AddAircraftModal from './modals/AddAircraftModal';
 import RemoveAircraftModal from './modals/RemoveAircraftModal';
+import BackInServiceModal from './modals/BackInServiceModal';
 
 function AircraftStatus() {
     const [events, setEvents] = useState([]);
-    const [showModal, setShowModal] = useState(null);
+    const [showModal, setShowModal] = useState({
+        type: null,
+        event: null
+    });
 
     const refreshTable = () => {
         fetchEvents();
@@ -31,10 +35,6 @@ function AircraftStatus() {
         }
     };
 
-    const handleBackInService = (eventId) => {};
-    
-    const handleEditEvent = async (eventId) => {};
-
     const formatTime = (timestamp) => {
         const date = new Date(timestamp);
         return date.toLocaleString();
@@ -47,30 +47,30 @@ function AircraftStatus() {
 
                 <div className="row table-buttons">
                     <div className="col-sm">
-                        <button type="button" className="btn btn-primary border-0" onClick={() => setShowModal("addEvent")}>Add New Tail Event</button>
-                        {showModal === 'addEvent' && (
+                        <button type="button" className="btn btn-primary border-0" onClick={() => setShowModal({type: 'addEvent', event: null})}>Add New Tail Event</button>
+                        {showModal.type === 'addEvent' && (
                             <AddEventModal 
                                 show={true}
-                                handleClose={() => setShowModal(null)}
+                                handleClose={() => setShowModal({ type: null, event: null })}
                                 refreshTable={refreshTable}
                             />
                         )}
                     </div>
                     <div className="col-sm text-end">
-                        <button type="button" className="btn btn-primary border-0" onClick={() => setShowModal("addAircraft")}>Add Aircraft</button>
-                        {showModal === 'addAircraft' && (
+                        <button type="button" className="btn btn-primary border-0" onClick={() => setShowModal({type: 'addAircraft', event: null})}>Add Aircraft</button>
+                        {showModal.type === 'addAircraft' && (
                             <AddAircraftModal 
                                 show={true}
-                                handleClose={() => setShowModal(null)}
+                                handleClose={() => setShowModal({ type: null, event: null })}
                                 refreshTable={refreshTable}
                             />
                         )}
                         <> </>
-                        <button type="button" className="btn btn-primary border-0" onClick={() => setShowModal("removeAircraft")}>Remove Aircraft</button>
-                        {showModal === 'removeAircraft' && (
+                        <button type="button" className="btn btn-primary border-0" onClick={() => setShowModal({type: 'removeAircraft', event: null})}>Remove Aircraft</button>
+                        {showModal.type === 'removeAircraft' && (
                             <RemoveAircraftModal 
                                 show={true}
-                                handleClose={() => setShowModal(null)}
+                                handleClose={() => setShowModal({ type: null, event: null })}
                                 refreshTable={refreshTable}
                             />
                         )}
@@ -107,10 +107,18 @@ function AircraftStatus() {
                                     <td>{formatTime(event.nextUpdate)}</td>
                                     <td>{event.remark}</td>
                                     <td>
-                                        <button className='btn btn-primary border-0' onClick={() => handleBackInService(event.eventId)}>Set</button>
+                                        <button className='btn btn-primary border-0' onClick={() => setShowModal({type: 'backInService', event})}>Set</button>
+                                        {showModal.type === 'backInService' && showModal.event?.eventId === event.eventId && (
+                                            <BackInServiceModal 
+                                                show={true}
+                                                handleClose={() => setShowModal({ type: null, event: null })}
+                                                refreshTable={refreshTable}
+                                                event={showModal.event}
+                                            />
+                                        )}
                                     </td>
                                     <td>
-                                        <button className='btn btn-primary border-0' onClick={() => handleEditEvent(event.eventId)}>Edit</button>
+                                        <button className='btn btn-primary border-0' onClick={() => setShowModal({type: 'editEvent', event})}>Edit</button>
                                     </td>
                                 </tr>
                             ))

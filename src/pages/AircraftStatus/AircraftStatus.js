@@ -7,6 +7,7 @@ import AddEventModal from './modals/AddEventModal';
 import AddAircraftModal from './modals/AddAircraftModal';
 import RemoveAircraftModal from './modals/RemoveAircraftModal';
 import BackInServiceModal from './modals/BackInServiceModal';
+import EditEventModal from './modals/EditEventModal';
 
 function AircraftStatus() {
     const [events, setEvents] = useState([]);
@@ -119,6 +120,14 @@ function AircraftStatus() {
                                     </td>
                                     <td>
                                         <button className='btn btn-primary border-0' onClick={() => setShowModal({type: 'editEvent', event})}>Edit</button>
+                                        {showModal.type === 'editEvent' && showModal.event?.eventId === event.eventId && (
+                                            <EditEventModal 
+                                                show={true}
+                                                handleClose={() => setShowModal({ type: null, event: null })}
+                                                refreshTable={refreshTable}
+                                                event={showModal.event}
+                                            />
+                                        )}
                                     </td>
                                 </tr>
                             ))

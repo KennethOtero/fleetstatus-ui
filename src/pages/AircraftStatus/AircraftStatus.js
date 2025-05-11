@@ -23,9 +23,11 @@ function AircraftStatus() {
     useEffect(() => {
         fetchEvents();
 
-        setInterval(() => {
+        const intervalId = setInterval(() => {
             fetchEvents();
         }, 10000);
+
+        return () => clearInterval(intervalId);
     }, []);
 
     const fetchEvents = async () => {
